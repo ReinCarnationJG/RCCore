@@ -1,0 +1,4 @@
+name: ReinCarnationCore
+version: '${version}'
+main: siqlet.org.example.reincarnationcore.ReinCarnationCore
+api-version: 1.17
