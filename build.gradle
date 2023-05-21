@@ -15,10 +15,15 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "lumine"
+        url = uri("https://mvn.lumine.io/repository/maven-public/")
+    }
 }
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.17-R0.1-SNAPSHOT"
+    compileOnly("io.lumine:Mythic-Dist:5.2.1")
 }
 
 def targetJavaVersion = 16
@@ -45,3 +50,5 @@ processResources {
         expand props
     }
 }
+
+tasks.withType(AbstractCompile)*.options*.encoding = tasks.withType(GroovyCompile)*.groovyOptions*.encoding = 'UTF-8'
