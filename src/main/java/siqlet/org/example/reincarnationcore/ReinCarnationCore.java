@@ -2,6 +2,7 @@ package siqlet.org.example.reincarnationcore;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import siqlet.org.example.reincarnationcore.command.TradeCommand;
+import siqlet.org.example.reincarnationcore.register.Register;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ public final class ReinCarnationCore extends JavaPlugin {
 
         getLogger().info("Event登録中...");
 
-
+        getServer().getPluginManager().registerEvents(new Register(), this);
 
         getLogger().info("Event登録完了");
 
