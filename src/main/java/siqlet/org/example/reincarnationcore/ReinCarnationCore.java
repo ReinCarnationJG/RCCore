@@ -12,6 +12,10 @@ import java.util.Objects;
 
 public final class ReinCarnationCore extends JavaPlugin {
 
+    private static ReinCarnationCore core;
+    public ReinCarnationCore() {core = this;}
+    public static ReinCarnationCore inst() {return core;}
+
     @Override
     public void onEnable() {
         // Plugin startup logic
