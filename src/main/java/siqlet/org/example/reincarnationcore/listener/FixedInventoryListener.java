@@ -29,6 +29,7 @@ public class FixedInventoryListener implements Listener {
 
             barrierStack.setItemMeta(barrierMeta);
 
+            p.getInventory().setItem(6, barrierStack);
             p.getInventory().setItem(7, barrierStack);
             p.getInventory().setItem(8, barrierStack);
             p.getInventory().setItem(9, barrierStack);
@@ -36,8 +37,27 @@ public class FixedInventoryListener implements Listener {
         }
     }
 
+    private static void ClearBarrier(Player p) {
+
+        for (ItemStack item : p.getInventory().getContents()) {
+            if (item != null && item.getType() == Material.BARRIER) {
+                // アイテムのNBTタグを取得
+                ItemMeta itemMeta = item.getItemMeta();
+                NamespacedKey nbtKey = new NamespacedKey(ReinCarnationCore.inst(), "FixedBarrier");
+                String nbtValue = itemMeta.getPersistentDataContainer().get(nbtKey, PersistentDataType.STRING);
+
+                // NBTタグが"true"の場合、アイテムをクリア
+                if (nbtValue != null && nbtValue.equals("1")) {
+                    p.getInventory().remove(item);
+                }
+            }
+        }
+
+    }
+
     public static void Fixed() {
         Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::Barrier);
+        Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::ClearBarrier);
     }
 
     @EventHandler
