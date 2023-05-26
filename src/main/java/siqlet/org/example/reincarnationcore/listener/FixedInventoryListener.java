@@ -14,12 +14,15 @@ import org.bukkit.persistence.PersistentDataType;
 import siqlet.org.example.reincarnationcore.ReinCarnationCore;
 import siqlet.org.example.reincarnationcore.config.SabaminFile;
 
+import java.util.Objects;
+
 public class FixedInventoryListener implements Listener {
 
     private static void Barrier(Player p) {
 
         if (SabaminFile.isEnabled(p.getUniqueId())) {
 
+            Inventory inv = p.getInventory();
             ItemStack barrierStack = new ItemStack(Material.BARRIER);
             ItemMeta barrierMeta = barrierStack.getItemMeta();
             NamespacedKey nbtKey = new NamespacedKey(ReinCarnationCore.inst(), "FixedBarrier");
@@ -29,10 +32,10 @@ public class FixedInventoryListener implements Listener {
 
             barrierStack.setItemMeta(barrierMeta);
 
-            p.getInventory().setItem(6, barrierStack);
-            p.getInventory().setItem(7, barrierStack);
-            p.getInventory().setItem(8, barrierStack);
-            p.getInventory().setItem(9, barrierStack);
+            inv.setItem(5, barrierStack);
+            inv.setItem(6, barrierStack);
+            inv.setItem(7, barrierStack);
+            inv.setItem(8, barrierStack);
 
         }
     }
@@ -41,18 +44,23 @@ public class FixedInventoryListener implements Listener {
 
         for (ItemStack item : p.getInventory().getContents()) {
             if (item != null && item.getType() == Material.BARRIER) {
-                // アイテムのNBTタグを取得
+
                 ItemMeta itemMeta = item.getItemMeta();
                 NamespacedKey nbtKey = new NamespacedKey(ReinCarnationCore.inst(), "FixedBarrier");
                 String nbtValue = itemMeta.getPersistentDataContainer().get(nbtKey, PersistentDataType.STRING);
+                Inventory inv = p.getInventory();
 
-                // NBTタグが"true"の場合、アイテムをクリア
                 if (nbtValue != null && nbtValue.equals("1")) {
-                    p.getInventory().remove(item);
+
+                    if (!Objects.requireNonNull(inv.getItem(5)).equals(item) || !Objects.requireNonNull(inv.getItem(6)).equals(item) ||
+                            !Objects.requireNonNull(inv.getItem(7)).equals(item) || !Objects.requireNonNull(inv.getItem(8)).equals(item)) {
+                        p.getInventory().remove(item);
+                    }
+
                 }
             }
-        }
 
+        }
     }
 
     public static void Fixed() {
