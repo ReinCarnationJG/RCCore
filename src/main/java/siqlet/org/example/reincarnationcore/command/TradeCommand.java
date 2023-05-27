@@ -54,6 +54,10 @@ public class TradeCommand implements CommandExecutor {
                 player.sendMessage(prefix + "届いている申請がありません。");
                 return true;
             }
+            if ( requester.getOpenInventory().getTitle().equalsIgnoreCase("Trade GUI") ) {
+                player.sendMessage(prefix + "そのPlayerは現在、他の人と取引を行っています。");
+                return true;
+            }
 
             player.sendMessage(prefix + "trade画面に移行します");
             requester.sendMessage(prefix + "tradeが承認されました");
@@ -71,10 +75,14 @@ public class TradeCommand implements CommandExecutor {
             }
             if( PlayerUtil.checkPlayerName(arg).equals(player.getName()) ) {
                 player.sendMessage(prefix + "自分にtrade申請を送る事は出来ません。");
-//                return true;
+                return true;
             }
             if ( tradeRequests.containsKey(player) ) {
                 player.sendMessage(prefix + "申請を受け取っている時は新たに申請を送れません。");
+                return true;
+            }
+            if ( tradeRequests.containsKey( PlayerUtil.returnPlayer(arg) ) ) {
+                player.sendMessage(prefix + "§e" + arg + " §fは現在他の人から申請を受け取っている為、新たに申請を送る事が出来ません。");
                 return true;
             }
 
