@@ -3,6 +3,7 @@ package siqlet.org.example.reincarnationcore.listener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,15 +13,18 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import siqlet.org.example.reincarnationcore.ReinCarnationCore;
-import siqlet.org.example.reincarnationcore.config.SabaminFile;
 
+import java.io.File;
 import java.util.Objects;
 
 public class FixedInventoryListener implements Listener {
 
-    private static void Barrier(Player p) {
+    private static void barrier(Player p) {
 
-        if (SabaminFile.isEnabled(p.getUniqueId())) {
+        File sabamin = new File("plugins/ReinCarnationCore", "sabamin.yml");
+        YamlConfiguration sabaminYml = YamlConfiguration.loadConfiguration(sabamin);
+
+        if (sabaminYml.getBoolean("players." + p.getUniqueId(), true)) {
 
             Inventory inv = p.getInventory();
             ItemStack barrierStack = new ItemStack(Material.BARRIER);
@@ -40,7 +44,7 @@ public class FixedInventoryListener implements Listener {
         }
     }
 
-    private static void ClearBarrier(Player p) {
+    private static void clearBarrier(Player p) {
 
         for (ItemStack item : p.getInventory().getContents()) {
             if (item != null && item.getType() == Material.BARRIER) {
@@ -64,20 +68,19 @@ public class FixedInventoryListener implements Listener {
     }
 
     public static void Fixed() {
-        Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::Barrier);
-        Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::ClearBarrier);
+        Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::barrier);
+        Bukkit.getOnlinePlayers().forEach(FixedInventoryListener::clearBarrier);
     }
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
+        int hotBar = e.getHotbarButton();
 
-        Inventory inv = e.getInventory();
-        int slot = e.getRawSlot();
-
-        if ( inv.getHolder() == null && slot >= 7 && slot <= 9 ) {
+        if ( hotBar >= 5 ) {
             e.setCancelled(true);
+            Bukkit.broadcastMessage("うんちA");
         }
-
+        Bukkit.broadcastMessage("うんちB");
     }
 
 }
