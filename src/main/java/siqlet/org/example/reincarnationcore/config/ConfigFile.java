@@ -1,6 +1,5 @@
 package siqlet.org.example.reincarnationcore.config;
 
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,13 +8,10 @@ import java.io.IOException;
 
 public class ConfigFile {
 
-    public static void save(JavaPlugin plugin, String yml) {
-
-        File file = new File(plugin.getDataFolder(), yml);
-        YamlConfiguration fileYml = YamlConfiguration.loadConfiguration(file);
+    public static void save(JavaPlugin plugin, String yml, YamlConfiguration yamlConfig) {
 
         try {
-            fileYml.save(file);
+            yamlConfig.save(new File(plugin.getDataFolder(), yml));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,16 +31,12 @@ public class ConfigFile {
         }
 
     }
-    public static void load(JavaPlugin plugin, String yml) {
+    public static YamlConfiguration load(JavaPlugin plugin, String yml) {
 
         File file = new File(plugin.getDataFolder(), yml);
         YamlConfiguration fileYml = YamlConfiguration.loadConfiguration(file);
 
-        try {
-            fileYml.load(yml);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
+        return fileYml;
     }
 
 }
