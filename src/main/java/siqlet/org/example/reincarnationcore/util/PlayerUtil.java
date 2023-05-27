@@ -23,4 +23,8 @@ public class PlayerUtil {
 
     }
 
+    public static Player returnPlayer(String name) {
+        return Bukkit.getServer().getPlayer(name);
+    }
+
 }
