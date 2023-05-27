@@ -1,10 +1,8 @@
 package siqlet.org.example.reincarnationcore;
 
-import io.lumine.mythic.bukkit.utils.random.VariableAmount;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import siqlet.org.example.reincarnationcore.command.SabaminCommand;
-import siqlet.org.example.reincarnationcore.command.TradeCommand;
 import siqlet.org.example.reincarnationcore.config.ConfigFile;
 import siqlet.org.example.reincarnationcore.listener.FixedInventoryListener;
 import siqlet.org.example.reincarnationcore.register.Register;
@@ -31,7 +29,6 @@ public final class ReinCarnationCore extends JavaPlugin {
         getLogger().info("Event登録完了");
         getLogger().info("Command登録中");
 
-        Objects.requireNonNull(getServer().getPluginCommand("trade")).setExecutor(new TradeCommand());
         Objects.requireNonNull(getServer().getPluginCommand("sabamin")).setExecutor(new SabaminCommand());
 
         getLogger().info("Command登録完了");
