@@ -1,5 +1,6 @@
 package siqlet.org.example.reincarnationcore.util;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -59,6 +60,7 @@ public class ItemUtil {
         SkullMeta skullMeta = (SkullMeta) playerHead.getItemMeta();
 
         skullMeta.setOwningPlayer(p);
+        skullMeta.setDisplayName(Color.fromRGB(255, 236, 97) + p.getName());
         playerHead.setItemMeta(skullMeta);
 
         return playerHead;
