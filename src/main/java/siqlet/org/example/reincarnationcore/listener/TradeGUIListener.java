@@ -12,7 +12,7 @@ import java.util.Map;
 public class TradeGUIListener implements Listener {
 
     @EventHandler
-    public void onClick(InventoryClickEvent e) {
+    public void onInvClick(InventoryClickEvent e) {
 
         Player player = (Player) e.getWhoClicked();
         Inventory clickInv = e.getClickedInventory();
@@ -26,13 +26,15 @@ public class TradeGUIListener implements Listener {
         if ( targetGUI.containsKey(player) ) {
             Inventory requester = requesterGUI.get(player);
             requester.setItem(slot, e.getCurrentItem());
+
+            e.setCancelled(true);
         }
         if ( requesterGUI.containsKey(player) ) {
             Inventory target = targetGUI.get(player);
             target.setItem(slot, e.getCurrentItem());
-        }
 
-        e.setCancelled(true);
+            e.setCancelled(true);
+        }
     }
 
 }
