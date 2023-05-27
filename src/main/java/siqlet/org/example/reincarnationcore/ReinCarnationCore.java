@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import siqlet.org.example.reincarnationcore.command.SabaminCommand;
 import siqlet.org.example.reincarnationcore.command.TradeCommand;
+import siqlet.org.example.reincarnationcore.config.ConfigFile;
 import siqlet.org.example.reincarnationcore.listener.FixedInventoryListener;
 import siqlet.org.example.reincarnationcore.register.Register;
 
@@ -19,6 +20,8 @@ public final class ReinCarnationCore extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+
+        ConfigFile.create(this, "sabamin.yml");
 
         getLogger().info("Event登録中...");
 
