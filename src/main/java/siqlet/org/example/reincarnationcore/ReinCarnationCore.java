@@ -20,6 +20,7 @@ public final class ReinCarnationCore extends JavaPlugin {
         // Plugin startup logic
 
         ConfigFile.create(this, "sabamin.yml");
+        ConfigFile.create(this, "gacha.yml");
 
         getLogger().info("Event登録中...");
 
